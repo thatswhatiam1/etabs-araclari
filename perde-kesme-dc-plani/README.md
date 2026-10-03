@@ -3,6 +3,12 @@
 Açık ETABS modelinden seçilen kattaki pier kesmelerini okur, planda
 renklendirilmiş bir d/c görseli ve Excel tablosu üretir.
 
+d/c oranı, ETABS'ta analizi yapılmış yük durumları arasından komut satırında
+seçtiğiniz kuvvetin, perdenin kesme dayanımı üst sınırına oranıdır:
+
+    V_max = 0.85 · A_ch · √f_ck
+    d/c   = |V2|max / V_max
+
 Verdiğiniz adın load case mi, pattern mı yoksa kombinasyon mu olduğunu kendisi
 bulur; gerekli analizin yapılıp yapılmadığını kontrol eder (`--run` verilirse
 analizi başlatır); çıktı seçimini ETABS arayüzündeki seçimlerden bağımsız olarak
