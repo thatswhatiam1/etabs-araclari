@@ -2025,12 +2025,29 @@ class ScalingWindow(tk.Toplevel):
             messagebox.showerror("Eksik Paket", "pip install comtypes")
             return
 
-        _TLB = (r"C:\Program Files\Computers and Structures"
-                r"\ETABS 22\NativeAPI\x64\ETABSv1.tlb")
-        _EXE = (r"C:\Program Files\Computers and Structures"
-                r"\ETABS 22\ETABS.exe")
+        # Kurulu ETABS surumunu kendisi bulur (ETABS 22, 23, ...); en yenisi secilir.
+        def _etabs_kurulum_yolu():
+            import glob as _glob
+            adaylar = []
+            for _kok in (r"C:\Program Files\Computers and Structures",
+                         r"C:\Program Files (x86)\Computers and Structures"):
+                for _d in _glob.glob(_kok + r"\ETABS *"):
+                    _m = re.search(r"ETABS\s+(\d+)", _d)
+                    if _m and os.path.isfile(os.path.join(_d, "ETABS.exe")):
+                        adaylar.append((int(_m.group(1)), _d))
+            if not adaylar:
+                return None, None
+            _d = sorted(adaylar)[-1][1]
+            return (os.path.join(_d, "NativeAPI", "x64", "ETABSv1.tlb"),
+                    os.path.join(_d, "ETABS.exe"))
+
+        _TLB, _EXE = _etabs_kurulum_yolu()
+        if _TLB is None:
+            self._log("  Kurulu ETABS bulunamadi; calisan ETABS'a baglanmayi denerim.")
+            _TLB = _EXE = ""
         try:
-            cc.GetModule(_TLB)
+            if _TLB:
+                cc.GetModule(_TLB)
             self._log("  TLB yuklendi.")
         except Exception as ex:
             self._log(f"  TLB uyarisi: {ex}")

@@ -16,7 +16,8 @@ Derlenmiş programlar (ETABS eklentileri) [Releases](../../releases) bölümünd
 ## Gereksinimler
 
 Python 3.9+. ETABS'a bağlanan araçlar Windows'ta, ETABS kurulu bir makinede ve
-model açıkken çalışır. Her aracın gerektirdiği kütüphaneler kendi klasöründeki
+model açıkken çalışır. **Desteklenen ETABS sürümleri: 22 ve 23.** Bağlantı
+ETABSv1 API üzerinden kurulur; daha eski sürümlerde denenmemiştir. Her aracın gerektirdiği kütüphaneler kendi klasöründeki
 açıklamada yazılıdır.
 
 > **Sorumluluk reddi.** Bu araçlar mühendislik yardımcısıdır; hesap, tasarım ve
